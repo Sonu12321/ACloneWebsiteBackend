@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import ConnectDB from './DataBase.js';
+import userRouter from './Router/UserRoutes.js'
+import cookieParser from 'cookie-parser';
 
 dotenv.config({
     path: './.env'
@@ -18,6 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+
+app.use(cookieParser())
+
+
+app.use('/api',userRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello World');
