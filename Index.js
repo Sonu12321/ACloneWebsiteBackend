@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import ConnectDB from './DataBase.js';
 import userRouter from './Router/UserRoutes.js'
 import cookieParser from 'cookie-parser';
+import CaptainRouter from './Router/CaptainRoute.js'
 
 dotenv.config({
     path: './.env'
@@ -25,6 +26,7 @@ app.use(cookieParser())
 
 
 app.use('/api',userRouter)
+app.use('/Captain',CaptainRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello World');
