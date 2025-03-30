@@ -6,17 +6,23 @@ import ConnectDB from './DataBase.js';
 import userRouter from './Router/UserRoutes.js'
 import cookieParser from 'cookie-parser';
 import CaptainRouter from './Router/CaptainRoute.js'
+import MapsRouter from './Router/Maps.Routes.js';
+import RideRouter from './Router/rideRoutes.js'
 
-dotenv.config({
-    path: './.env'
-})
+
+dotenv.config()
 
 
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow your frontend's origin
+    credentials: true, // Allow cookies and authentication headers
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
@@ -27,6 +33,10 @@ app.use(cookieParser())
 
 app.use('/api',userRouter)
 app.use('/Captain',CaptainRouter)
+app.use('/Maps',MapsRouter)
+app.use('/Rides',RideRouter)
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World');
